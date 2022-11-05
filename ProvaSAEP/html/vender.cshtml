@@ -1,0 +1,62 @@
+﻿@using ProvaSAEP.csharp;
+@{
+    BancoDeDados.DBConnect();
+
+    string Area = Request.Form["area_id"];
+    string Modelo = Request.Form["modelo"];
+    string IdAuto = Request.Form["IdAuto"];
+    string IdAloc = Request.Form["id_alocacao"];
+    
+}
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="~/css/lista.css" />
+
+        <title>Vender Automovel</title>
+    </head>
+    <body>
+        <form method="post" action="~/html/confirmar.cshtml">
+            <div class="container">
+                <h1>@Modelo</h1>
+                <select id="Cliente" required>
+                    <option value="0" disabled selected>Cliente</option>
+                    @{List<cliente> lista_clientes = Funcoes.Clientes();}
+                    @foreach (cliente listagemclientes in lista_clientes)
+                    {
+                        <option value="@listagemclientes.id">@listagemclientes.nome</option>
+                    }
+                </select>
+                <br />
+                <br />
+                <select id="Concessionaria" required>
+                    <option value="0" disabled selected>Concessionaria</option>
+                    @{List<concessionaria> lista_concess = Funcoes.Concessionarias(Area, IdAuto);}
+                    @foreach (concessionaria ListaConces in lista_concess)
+                    {
+                        <option value="@ListaConces.id">@ListaConces.nome</option>
+                    }
+                </select>
+                <input type="hidden" id="id_alocacao" name="id_alocacao" value="@IdAloc" />
+                <input type="submit" id="vender" value="Confirmar" disabled="disabled" />
+            </div>
+        </form>
+        <script>
+            var slct1 = document.getElementById('Cliente');
+            var slct2 = document.getElementById('Concessionaria');
+            slct1.addEventListener('change', function () {
+                var style = this.value != 0 ? 'block' : 'none';
+                slct2.addEventListener('change', function () {
+                    var style = this.value != 0 ? 'block' : 'none';
+                    document.getElementById('vender').disabled = false;
+                });
+            });
+        </script>
+    </body>
+</html>

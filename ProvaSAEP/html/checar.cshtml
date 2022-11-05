@@ -1,0 +1,32 @@
+﻿@using ProvaSAEP.csharp;
+@{
+    BancoDeDados.DBConnect();
+
+
+    string Area = Request.Form["area_id"];
+
+    if (Funcoes.checagem(Area))
+    {
+        HttpCookie cookie = new HttpCookie("area_id");
+        cookie.Value = (Area);
+        DateTime dtNow = DateTime.Now; //Time para expiração (10min)
+        TimeSpan tsMinute = new TimeSpan(0, 0, 60, 0);
+        cookie.Expires = dtNow + tsMinute;
+        Response.Cookies.Add(cookie); //Adiciona o cookie
+        <text>
+            <script> 
+                window.location.href = "lista.cshtml";
+            </script>
+        </text>
+    }
+    else
+    {
+        <text>
+            <script>
+                alert("A área selecionada está vazia!!");
+                window.location.href = "/Index.cshtml";
+            </script>
+        </text>
+    }
+}
+

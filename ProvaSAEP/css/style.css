@@ -1,0 +1,37 @@
+﻿body {
+    background-color: black;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    gap: 10px;
+    padding: 10px;
+}
+
+    .grid-container > div {
+        background-color: #FFFFFF;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    }
+
+button {
+    border: none;
+    border-radius: 10px;
+    height: 20rem;
+    background-color: #ffffff;
+    font-size: 2rem;
+    font-family: 'Segoe UI';
+    color: #000000;
+}
+
+button:hover {
+    background-color: #707070;
+    color: #ffffff;
+}
+
+h1 {
+    color: #FFFFFF;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

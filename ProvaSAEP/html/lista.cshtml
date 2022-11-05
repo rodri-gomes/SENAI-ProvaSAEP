@@ -1,0 +1,57 @@
+﻿@using ProvaSAEP.csharp;
+@{
+    BancoDeDados.DBConnect();
+    HttpCookie cookie = Request.Cookies["area_id"];
+    string Area = cookie.Value.ToString();
+}
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="~/css/lista.css" />
+        <title>ÁREA @Area</title>
+    </head>
+    <body>
+            <div class="lista" id="lista">
+                
+                <center>
+                    <h1> Área @Area</h1>
+                    <br />
+                    <table>
+                        <tr>
+                            <th>MODELO</th>
+                            <th>PREÇO</th>
+                            <th>    </th>
+                        </tr>
+                        @{List<alocacao> lista = Funcoes.Listagem_Automoveis(Area);}
+                        @foreach (alocacao listagemauto in lista)
+                        {
+                            <tr>
+                                <td>@listagemauto.automoveis</td>
+                                <td>@listagemauto.concessionaria</td>
+                                <td>
+                                    <div class="options">
+                                        <form method="post" action="~/html/vender.cshtml">
+                                            <input type="hidden" id="id_alocacao" name="id_alocacao" value="@listagemauto.id" />
+                                            <input type="hidden" id="modelo" name="modelo" value="@listagemauto.automoveis" />
+                                            <input type="hidden" id="IdAuto" name="IdAuto" value="@listagemauto.area" />
+                                            <input type="hidden" id="area_id" name="area_id" value="@Area" />
+                                            <button class="btn_edit">
+                                                VENDER
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                </center>
+            </div>
+    </body>
+</html>

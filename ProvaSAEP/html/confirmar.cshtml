@@ -1,0 +1,16 @@
+﻿@using ProvaSAEP.csharp;
+@{
+    BancoDeDados.DBConnect();
+
+
+    string IdAloc = Request.Form["id_alocacao"];
+
+    Funcoes.delete(IdAloc);
+
+    <text>
+        <script>
+            alert("Venda Confirmada com sucesso!");
+            window.location.href = "/Index.cshtml";
+        </script>
+    </text>
+}
